@@ -1,1 +1,3 @@
-# practice
+#JavaScript practice
+
+Codes written while learning JS....
