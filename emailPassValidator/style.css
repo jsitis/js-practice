@@ -1,0 +1,65 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #eef1f6;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #1b2233;
+}
+
+.card {
+  width: 100%;
+  max-width: 360px;
+  padding: 28px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(27, 34, 51, 0.08);
+}
+
+h1 { margin: 0 0 20px; font-size: 1.4rem; }
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1.5px solid #d0d5dd;
+  border-radius: 8px;
+  outline: none;
+}
+input:focus { border-color: #3d5afe; }
+
+button {
+  width: 100%;
+  padding: 11px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #3d5afe;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover { background: #2f48d9; }
+
+/* Message box: hidden by default */
+.message {
+  margin: 8px 0 16px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  display: none;
+}
+.message.error   { color: #b42318; background: #fef3f2; }
+.message.success { color: #146c3b; background: #ecfdf3; }
