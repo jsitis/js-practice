@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+
+<script type="text/babel">
+    const { useState } = React
+
+    function App() {
+    const [tasks, setTasks] = useState([]);
+    const [taskInput, setTaskInput] = useState("");
+
+    // Add a new task
+    function addTask() {
+        if (taskInput.trim() === "") {
+        alert("Task cannot be empty!");
+        return;
+        }
+
+        const newTask = {
+        id: tasks.length + 1,
+        text: taskInput,
+        completed: false,
+        };
+        setTasks([...tasks, newTask]);
+        setTaskInput(""); // Clear input field
+    }
+
+    // Toggle task completion
+    function toggleTaskCompletion(taskId) {
+        setTasks(
+        tasks.map((task) =>
+            task.id === taskId ? { ...task, completed: !task.completed } : task
+        )
+        );
+    }
+
+    // Delete a task
+    function deleteTask(taskId) {
+        setTasks(tasks.filter((task) => task.id !== taskId));
+    }
+
+    return (
+        <div className="app">
+            <h1>To-Do List</h1>
+
+            {/* Task Input */}
+            <div className="input-container">
+                <input
+                    type="text"
+                    placeholder="Enter a task"
+                    value={taskInput}
+                    onChange={(e) => setTaskInput(e.target.value)}/>
+                <button onClick={addTask}>Add Task</button>
+            </div>
+
+                {/* Task List */}
+            <ul className="task-list">
+                {tasks.length > 0 ? (
+                    tasks.map((task) => (
+                        <li key={task.id} className="task-item">
+                        <span
+                            className={task.completed ? "completed" : ""}
+                            onClick={() => toggleTaskCompletion(task.id)}
+                        >
+                            {task.text}
+                        </span>
+                        <button onClick={() => deleteTask(task.id)}>Delete</button>
+                        </li>
+                    ))
+                    ) : (
+                    <p>No tasks added yet!</p>
+                    )}
+                </ul>
+            </div>
+    );
+    }
+
+    // Render the application
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+</script>
+</body>
+</html>

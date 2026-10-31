@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UseState onSubmit working</title>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+
+<script type="text/babel">
+    const {useState} = React;
+
+    function CompleteForm(){
+
+        const [formData, setFormData] = useState({
+            name: "",
+            password: "",
+            gender: "",
+            comments: "",
+        })
+
+        function handleSubmit(e){
+            e.preventDefault();
+            console.log("FormData:", formData);
+            setFormData({
+            name: "",
+            password: "",
+            gender: "",
+            comments: "",
+        });
+
+        }
+
+        function handleChange(e){
+            const {name, value} = e.target;
+            setFormData({...formData, [name]: value})
+        }
+
+
+        return(
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Name:
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} />    
+                </label>    
+                <br/><br/>
+
+                <label>
+                    Password:
+                    <input type="password" name="password" value={formData.password} onChange={handleChange} />    
+                </label>    
+                <br/><br/>
+
+                <label>
+                    Gender:
+                    <select name="gender" value={formData.gender} onChange={handleChange}>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>    
+                    </select> 
+                </label>    
+                <br/><br/>
+
+                <label>
+                    Comments:
+                    <textarea name="comments" value={formData.comments} onChange={handleChange}></textarea>  
+                </label>    
+                <br/><br/>
+
+                <button type="submit">Submit</button>
+
+            </form>
+        )
+        
+    }
+
+    function App(){
+        return(
+            <>
+            <CompleteForm />
+            </>
+        )
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />)
+</script>

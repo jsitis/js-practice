@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UseState working</title>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+
+<script type="text/babel">
+    const {useState} = React;
+    function UserProfile(){
+        const [user, setUser] = useState({name: "Tommy", age: 20});
+
+            function updateAge(){
+                setUser({...user, age: user.age+1})
+            }
+
+            return(
+                <div>
+                    <h2>
+                        {user.name} is {user.age} years old.
+                    </h2>
+                    <button onClick ={updateAge}>Increase Age</button>
+               </div>
+
+            );
+
+        }
+        function App(){
+            return (
+                <>
+                <UserProfile />
+                </>
+            )
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<App/>)
+</script>
