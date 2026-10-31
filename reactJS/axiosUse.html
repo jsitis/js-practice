@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API</title>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.20.0/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+
+<script type="text/babel">
+    const {useState} = React;
+
+    function App(){
+        const [movies, setMovies] = useState([]);
+        const [movieName, setMovieName] = useState("");
+
+        async function fetchMovies() {
+            try {
+                const response = await axios.get('https://reactmovie-8a415-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json');
+                const moviesArray = Object.entries(response.data).map(
+                    ([id, movie]) => ({id, ...movie})
+            );
+                console.log(moviesArray);
+                setMovies(moviesArray);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        async function addMovie() {
+            const response = await axios.post(
+                "https://reactmovie-8a415-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json",
+                { name: movieName }
+            );
+
+
+            console.log(response.data)
+        }
+        
+        return(
+            <>
+                <h1>React API Example</h1>
+                <button onClick={fetchMovies}>Fetch Data</button>
+                <input 
+                    type="text" 
+                    placeholder="Enter movie name" 
+                    value={movieName} 
+                    onChange={(e) => setMovieName(e.target.value)}
+                />
+                <button onClick={addMovie}>Add Movie</button>
+                <ul>
+                    {movies.map((item, index)=>(
+                        <li key={item.id}>{item.name}</li>
+                    ))}    
+                </ul>
+            </>
+        );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App/>)
+</script>
